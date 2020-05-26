@@ -3,8 +3,12 @@ package com.example.trucks;
 import java.util.ArrayList;
 
 public class Queue {
-    int queueSize = 6;
+    int queueSize;
     ArrayList<Truck> content = new ArrayList<>();
+
+    public Queue(int queueSize) {
+        this.queueSize = queueSize;
+    }
 
     public int getCurrentWaitTime() {
         int length = 0;
@@ -20,14 +24,14 @@ public class Queue {
     }
 
     public String getQueue(){
-        String queue = "";
+        StringBuilder queue = new StringBuilder();
         for (Truck truck:content
         ) {
-            queue+="| ";
-            queue+="ID:" + truck.getTruckID()+" ";
-            queue+="W:" + truck.getWeight()+" ";
+            queue.append("| ");
+            queue.append("ID:").append(truck.getTruckID()).append(" ");
+            queue.append("W:").append(truck.getWeight()).append(" ");
         }
-        return queue;
+        return queue.toString();
     }
     public boolean isQueueEmpty(){
         return content.size() < queueSize;
