@@ -27,3 +27,6 @@ This command shows the set of all the instructions with their short descriptions
 
 ## Command "q"
 Breaks the loop and terminates the application.
+
+## How to execute the program?
+Open terminal (commandline) and go to the folder with the program into catalogue "src". Type: `javac com/example/trucks/Simulation.java` to compile it. To execute compiled program type: `java com.example.trucks.Simulation`.
