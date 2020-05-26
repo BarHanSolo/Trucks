@@ -10,7 +10,7 @@ public class Queue {
         this.queueSize = queueSize;
     }
 
-    public int getCurrentWaitTime() {
+    public int getCurrentWaitingTime() {
         int length = 0;
         for (Truck truck:content
         ) {
@@ -23,7 +23,7 @@ public class Queue {
         content.add(truck);
     }
 
-    public String getQueue(){
+    public String toString(){
         StringBuilder queue = new StringBuilder();
         for (Truck truck:content
         ) {
@@ -33,7 +33,7 @@ public class Queue {
         }
         return queue.toString();
     }
-    public boolean isQueueEmpty(){
+    public boolean isQueueNotFull(){
         return content.size() < queueSize;
     }
 

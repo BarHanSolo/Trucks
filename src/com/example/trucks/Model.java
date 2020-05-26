@@ -14,11 +14,11 @@ public class Model {
 
     public boolean addTruck(int weight) {
         Truck truck = new Truck(weight, id);
-        if (queue1.getCurrentWaitTime()>queue2.getCurrentWaitTime() && queue2.isQueueEmpty()){
+        if (queue1.getCurrentWaitingTime()>queue2.getCurrentWaitingTime() && queue2.isQueueNotFull()){
             queue2.addTruck(truck);
-        } else if (queue1.isQueueEmpty()){
+        } else if (queue1.isQueueNotFull()){
             queue1.addTruck(truck);
-        } else if (queue2.isQueueEmpty()){
+        } else if (queue2.isQueueNotFull()){
             queue2.addTruck(truck);
         } else {
             return false;
@@ -32,8 +32,8 @@ public class Model {
     }
 
     public String showState(){
-        return "QN | CargoCHK | 1        | 2        | 3        | 4        | 5        |\n"
-                + "Q1 " + queue1.getQueue() + "\n" + "Q2 " +queue2.getQueue();
+        return "QN | CargoCHK | 1         | 2         | 3         | 4         | 5         |\n"
+                + "Q1 " + queue1.toString() + "\n" + "Q2 " +queue2.toString();
     }
 
     public void nextStep() {
@@ -45,15 +45,12 @@ public class Model {
 
     private void checkOptimisation() {
         float estimate = queue1.avgTime()+queue2.avgTime(); //average waiting time for queues before changing anything
-        String state = showState();
-        System.out.println(state);
-        System.out.println("First estimate: "+estimate);
         //looking for the shorter queue
         if (queue1.getCurrLen()<=queue2.getCurrLen()){
             for (int i=2; i<queue1.getCurrLen(); i+=1){
                 swapTrucks(i);
                 float newEstimate = queue1.avgTime()+queue2.avgTime();
-                System.out.println("New estimate: "+newEstimate);
+                //System.out.println("New estimate: "+newEstimate);
                 if (newEstimate>=estimate){
                     swapTrucks(i);
                 } else {
@@ -64,7 +61,7 @@ public class Model {
             for (int i=2; i<queue2.getCurrLen(); i+=1){
                 swapTrucks(i);
                 float newEstimate = queue1.avgTime()+queue2.avgTime();
-                System.out.println("New estimate: "+newEstimate);
+                //System.out.println("New estimate: "+newEstimate);
                 if (newEstimate>=estimate){
                     swapTrucks(i);
                 } else {
@@ -72,8 +69,6 @@ public class Model {
                 }
             }
         }
-        String state2 = showState();
-        System.out.println(state2);
     }
 
     private void swapTrucks(int position) {

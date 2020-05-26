@@ -16,12 +16,17 @@ public class Simulation {
             switch (command) {
                 case "1":
                     System.out.println("Write the weight of the truck:");
-                    int weight = Integer.parseInt(scanner.next());
-                    boolean result = model.addTruck(weight);
-                    if (result) {
-                        System.out.println("Truck added! \n" + model.showState());
-                    } else {
-                        System.out.println("All queues are full");
+                    int weight;
+                    try{
+                        weight = Integer.parseInt(scanner.next());
+                        boolean result = model.addTruck(weight);
+                        if (result) {
+                            System.out.println("Truck added! \n" + model.showState());
+                        } else {
+                            System.out.println("All queues are full");
+                        }
+                    } catch (NumberFormatException ex) {
+                        System.out.println("That's not a proper number");
                     }
                     break;
                 case "2": {
@@ -35,14 +40,18 @@ public class Simulation {
                     break;
                 case "4": {
                     System.out.println("Check by ID how long the truck has to wait:");
-                    int truckID = Integer.parseInt(scanner.next());
-                    int timeLeft = model.searchTruck(truckID);
-                    if (timeLeft==-1){
-                        System.out.println("No truck with this ID");
-                    } else if (timeLeft==0) {
-                        System.out.println("Truck is being checked right now");
-                    } else {
-                        System.out.println("Truck has to wait " + timeLeft);
+                    try{
+                        int truckID = Integer.parseInt(scanner.next());
+                        int timeLeft = model.searchTruck(truckID);
+                        if (timeLeft==-1){
+                            System.out.println("No truck with this ID");
+                        } else if (timeLeft==0) {
+                            System.out.println("Truck is being checked right now");
+                        } else {
+                            System.out.println("Truck has to wait " + timeLeft);
+                        }
+                    } catch (NumberFormatException ex) {
+                        System.out.println("That's not a proper ID");
                     }
                     break;
                 }
@@ -57,6 +66,7 @@ public class Simulation {
                     }
                     break;
                 case "?":
+                case "h":
                     System.out.println(helpText);
                     break;
             }
